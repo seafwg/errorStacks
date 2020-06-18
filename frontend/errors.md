@@ -165,3 +165,17 @@ console.log(encodeURIComponent(uri));
 ```
 
 **decodeURI()和decodeURIComponent()函数可实现之间的转化**
+
+## 11.数据机构的整合：[x,y],[1,2] => {x:1,y:2}
+
+```js
+var temp1 = ['x','y','z'];
+var temp2 = [1,2,3];
+var obj = {};
+for(let i = 0;i < temp1.length;i++) {
+	obj[temp1[i]] = temp2[i];
+}
+console.log(obj);
+// {x: 1, y: 2, z: 3}
+```
+
