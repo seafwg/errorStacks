@@ -166,7 +166,7 @@ console.log(encodeURIComponent(uri));
 
 **decodeURI()和decodeURIComponent()函数可实现之间的转化**
 
-## 11.数据机构的整合：[x,y],[1,2] => {x:1,y:2}
+## 11.数据结构的整合：[x,y],[1,2] => {x:1,y:2}
 
 ```js
 var temp1 = ['x','y','z'];
@@ -184,3 +184,69 @@ console.log(obj);
 > 1."."访问静态对象，对现有静态对象进行访问。
 >
 > 2."[]"访问动态对象，对动态对象进行访问，遍历对象等很有用
+
+### 12. mini ui中使用openwidow,传参数时，encodeComponent(JSON.stringfiy(param), 'utf-8')之后接收参数一直报错。
+
+
+
+
+
+
+
+### 13. 控制浏览器中的前进后退：
+
+```javascript
+/*
+* 目前只能跳转到首页无法实现后退一步和前进一步
+* */
+window.addEventListener("popstate", function(){
+  window.history.back();
+  // window.location.href = "" 无法跳转
+}, true);
+// 没有下面这一句是无法检测到回退的
+window.history.pushState('back', null, '');
+// window.history.forward(1);
+```
+
+### 14 ideal中配置热更新问题：配置好以后前端无法更新
+
+> 1.pom文件下配置依赖：
+>
+> ```pom
+> <!--    热跟新    -->
+> <dependency>
+>   <groupId>org.springframework.boot</groupId>
+>   <artifactId>spring-boot-devtools</artifactId>
+>   <optional>true</optional>
+> </dependency>
+> 
+> <plugin>
+>   <groupId>org.springframework.boot</groupId>
+>   <artifactId>spring-boot-maven-plugin</artifactId>
+>   <!-- 添加项 -->
+>   <configuration>
+>   	<fork>true</fork>
+>   </configuration>
+> </plugin>
+> ```
+>
+> 2.在application.properites中配置
+>
+> ```properties
+> #开启或关闭
+> spring.devtools.restart.enabled=true
+> #添加那个目录的文件需要restart
+> spring.devtools.restart.additional-paths=src/main/java
+> #排除那个目录的文件不需要restart
+> spring.devtools.restart.exclude=static/**,public/**
+> 
+> #禁止thymeleaf缓存（建议：开发环境设置为false，生成环境设置为true）
+> spring.thymeleaf.cache=false
+> ```
+>
+> 3.在settings>Compiper>Build inde....  √
+>
+> 4.ctr+shift+alt+/ ->Resgis...> ...app.running √
+>
+> 5.【前端项目无法更新时是此处为修改】Eidt Configration > server > On Update 和On frame ...选项都选择Update classess and resources
+
